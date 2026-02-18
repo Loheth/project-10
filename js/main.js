@@ -57,11 +57,26 @@ function toggleDevTools() {
 	$('#devtools').toggle();
 }
 
+function endCurrentGame() {
+	if (gameState !== 1 && gameState !== -1) return;
+	gameState = 2;
+	if (highscores.indexOf(score) === -1) {
+		highscores.push(score);
+	}
+	writeHighScores();
+	enableRestart();
+	if ($('#pauseBtn').is(':visible')) $('#pauseBtn').fadeOut(150, "linear");
+	if ($('#restartBtn').is(':visible')) $('#restartBtn').fadeOut(150, "linear");
+	if ($('#helpScreen').is(':visible')) $('#helpScreen').fadeOut(150, "linear");
+	clearSaveState();
+	gameOverDisplay();
+}
+
 function resumeGame() {
 	gameState = 1;
 	hideUIElements();
 	$('#pauseBtn').show();
-	$('#restartBtn').hide();
+	$('#restartBtn').show();
 	importing = 0;
 	startTime = Date.now();
 	setTimeout(function() {
@@ -77,7 +92,7 @@ function checkVisualElements(arg) {
 	if (arg && $('#openSideBar').is(":visible")) $('#openSideBar').fadeOut(150, "linear");
 	if (!$('#pauseBtn').is(':visible')) $('#pauseBtn').fadeIn(150, "linear");
 	$('#fork-ribbon').fadeOut(150);
-	if (!$('#restartBtn').is(':visible')) $('#restartBtn').fadeOut(150, "linear");
+	if (gameState === 1 && !$('#restartBtn').is(':visible')) $('#restartBtn').fadeIn(150, "linear");
 	if ($('#buttonCont').is(':visible')) $('#buttonCont').fadeOut(150, "linear");
 }
 
@@ -104,12 +119,8 @@ function init(b) {
 		clearSaveState();
 		checkVisualElements(1);
 	}
-	if (highscores.length === 0 ){
-		$("#currentHighScore").text(0);
-	}
-	else {
-		$("#currentHighScore").text(highscores[0])
-	}
+	// Show current score during play (security score updates live)
+	$("#currentHighScore").text(score);
 	infobuttonfading = true;
 	$("#pauseBtn").attr('src',"./images/btn_pause.svg");
 	hideUIElements();
@@ -126,7 +137,7 @@ function init(b) {
 	tweetblock=false;
 	scoreOpacity = 0;
 	gameState = 1;
-	$("#restartBtn").hide();
+	$("#restartBtn").show();
 	$("#pauseBtn").show();
 	if (saveState.hex !== undefined) gameState = 1;
 

@@ -126,12 +126,8 @@ function gameOverDisplay() {
 	var c = document.getElementById("canvas");
 	c.className = "blur";
 	updateHighScores();
-	if (highscores.length === 0 ){
-		$("#currentHighScore").text(0);
-	}
-	else {
-		$("#currentHighScore").text(highscores[0])
-	}
+	// Show final score in security score display on game over
+	$("#currentHighScore").text(score);
 	$("#gameoverscreen").fadeIn();
 	$("#buttonCont").fadeIn();
 	$("#container").fadeIn();

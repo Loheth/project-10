@@ -168,6 +168,10 @@ function addKeyListeners() {
 	}
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 			$("#restartBtn").on('touchstart', function() {
+			if (gameState === 1 || gameState === -1) {
+				endCurrentGame();
+				return;
+			}
 			init(1);
 			canRestart = false;
 			$("#gameoverscreen").fadeOut();
@@ -176,6 +180,10 @@ function addKeyListeners() {
 	}
 	else {
 		$("#restartBtn").on('mousedown', function() {
+			if (gameState === 1 || gameState === -1) {
+				endCurrentGame();
+				return;
+			}
 			init(1);
 			canRestart = false;
 			$("#gameoverscreen").fadeOut();

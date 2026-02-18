@@ -55,7 +55,7 @@ function render() {
 
 	if (gameState == -1) {
 		ctx.globalAlpha = 0.9;
-		ctx.fillStyle = '#0a0e14';
+		ctx.fillStyle = '#0a0a0c';
 		ctx.fillRect(0, 0, trueCanvas.width, trueCanvas.height);
 		ctx.globalAlpha = 1;
 	}
@@ -83,13 +83,13 @@ function renderBeginningText() {
         score_text = 'Match 3+ threats to score!'
         fontSize = 27
     }
-	renderText((trueCanvas.width)/2 + 2 * settings.scale,upperheight-0*settings.scale, fontSize, '#00d4ff', input_text);
-	renderText((trueCanvas.width)/2 + 2 * settings.scale,upperheight+33*settings.scale, fontSize, '#00d4ff', action_text);
+	renderText((trueCanvas.width)/2 + 2 * settings.scale,upperheight-0*settings.scale, fontSize, '#ff0040', input_text);
+	renderText((trueCanvas.width)/2 + 2 * settings.scale,upperheight+33*settings.scale, fontSize, '#ff0040', action_text);
     if (!mob) {
 	    drawKey("",(trueCanvas.width)/2 + 2 * settings.scale-2.5,upperheight+38*settings.scale);
     }
 
-	renderText((trueCanvas.width)/2 + 2 * settings.scale,lowerheight,fontSize, '#00ff88', score_text);
+	renderText((trueCanvas.width)/2 + 2 * settings.scale,lowerheight,fontSize, '#00ff41', score_text);
 }
 
 function drawKey(key, x, y) {

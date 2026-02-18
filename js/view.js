@@ -25,14 +25,14 @@ function drawScoreboard() {
     var fontSize = settings.platform == 'mobile' ? 35 : 30;
     var h = trueCanvas.height / 2 + gdy + 100 * settings.scale;
 	if (gameState === 0) {
-		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy, 60, "#00d4ff", String.fromCharCode("0xf04b"), 'px FontAwesome');
-		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2.1 + gdy - 155 * settings.scale, 150, "#00d4ff", "CyberHex");
-		renderText(trueCanvas.width / 2 + gdx + 5 * settings.scale, h + 10, fontSize, "#00ff88", 'DEFEND!');
+		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy, 60, "#ff0040", String.fromCharCode("0xf04b"), 'px FontAwesome');
+		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2.1 + gdy - 155 * settings.scale, 150, "#ff0040", "CyberHex");
+		renderText(trueCanvas.width / 2 + gdx + 5 * settings.scale, h + 10, fontSize, "#00ff41", 'DEFEND!');
 	} else if (gameState != 0 && textOpacity > 0) {
 		textOpacity -= 0.05;
-		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy, 60, "#00d4ff", String.fromCharCode("0xf04b"), 'px FontAwesome');
-		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy - 155 * settings.scale, 150, "#00d4ff", "CyberHex");
-		renderText(trueCanvas.width / 2 + gdx + 5 * settings.scale, h, fontSize, "#00ff88", 'DEFEND!');
+		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy, 60, "#ff0040", String.fromCharCode("0xf04b"), 'px FontAwesome');
+		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy - 155 * settings.scale, 150, "#ff0040", "CyberHex");
+		renderText(trueCanvas.width / 2 + gdx + 5 * settings.scale, h, fontSize, "#00ff41", 'DEFEND!');
 	}
 
 	ctx.globalAlpha = 1;

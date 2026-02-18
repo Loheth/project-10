@@ -156,6 +156,17 @@ function addKeyListeners() {
 
 	}
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		$("#quitBtn").on('touchstart', function() {
+			$("#gameoverscreen").fadeOut();
+			setStartScreen();
+		});
+	} else {
+		$("#quitBtn").on('mousedown', function() {
+			$("#gameoverscreen").fadeOut();
+			setStartScreen();
+		});
+	}
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 			$("#restartBtn").on('touchstart', function() {
 			init(1);
 			canRestart = false;

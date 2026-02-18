@@ -396,14 +396,13 @@ body {
 	cursor:pointer !important;
 	margin:0;
 	padding:0;
-	bottom:15px;
-	position:absolute;
-	left:calc(50% - 124px);
-	transform:translate(-50%, 0%);
-	-webkit-transform:translate(-50%, 0%);
-	-moz-transform:translate(-50%, 0%);
-	-ms-transform:translate(-50%, 0%);
-	margin-bottom:-3.5px;
+}
+
+#quitBtn {
+	display:none;
+	cursor:pointer !important;
+	margin:0;
+	padding:0;
 }
 
 #socialShare{
@@ -493,6 +492,18 @@ body {
 	position:absolute;
 	width:100%;
 	bottom:0px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-wrap:wrap;
+	padding-bottom:15px;
+}
+
+#gameOverButtons {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	gap:20px;
 }
 
 #androidBadge {

@@ -60,6 +60,9 @@ function toggleDevTools() {
 function endCurrentGame() {
 	if (gameState !== 1 && gameState !== -1) return;
 	gameState = 2;
+	// Clear pause overlay and "Firewall Paused" text when restarting from paused state
+	hideText();
+	$('#overlay').fadeOut(150, "linear");
 	if (highscores.indexOf(score) === -1) {
 		highscores.push(score);
 	}

@@ -161,7 +161,51 @@ function Hex(sideLength) {
 			this.angle += this.angularVelocity;
 		}
  
-		drawPolygon(this.x + gdx, this.y + gdy + this.dy, this.sides, this.sideLength, this.angle,arrayToColor(this.fillColor) , 0, 'rgba(0,0,0,0)');
+		if (gameState === 1 || gameState === 0) {
+			// Computer firewall look: dark tech base, panel segments, glowing border, shield icon
+			var cx = this.x + gdx;
+			var cy = this.y + gdy + this.dy;
+			var firewallFill = 'rgb(6, 20, 42)';
+			var glowColor = '#00d4ff';
+			var innerGlow = 'rgba(0, 212, 255, 0.4)';
+			var segmentColor = 'rgba(0, 212, 255, 0.2)';
+			drawPolygon(cx, cy, this.sides, this.sideLength, this.angle, firewallFill, 0, 'rgba(0,0,0,0)');
+			// Panel segment lines (center to each vertex) so it looks like a firewall shield
+			var vert = rotatePoint(0, this.sideLength, this.angle);
+			var vx = vert.x;
+			var vy = vert.y;
+			ctx.strokeStyle = segmentColor;
+			ctx.lineWidth = 1;
+			for (var i = 0; i < this.sides; i++) {
+				ctx.beginPath();
+				ctx.moveTo(cx, cy);
+				ctx.lineTo(cx + vx, cy + vy);
+				ctx.stroke();
+				var next = rotatePoint(vx, vy, 60);
+				vx = next.x;
+				vy = next.y;
+			}
+			// Inner shield hex
+			var innerRadius = this.sideLength * 0.68;
+			drawPolygon(cx, cy, this.sides, innerRadius, this.angle, 'rgba(0,0,0,0)', 1, innerGlow);
+			ctx.stroke();
+			// Outer glow border
+			ctx.strokeStyle = glowColor;
+			ctx.lineWidth = 2.5 * (window.devicePixelRatio ? Math.min(window.devicePixelRatio, 2) : 1);
+			drawPolygon(cx, cy, this.sides, this.sideLength, this.angle, 'rgba(0,0,0,0)', ctx.lineWidth, glowColor);
+			// Shield icon in center
+			ctx.save();
+			ctx.translate(cx, cy);
+			ctx.font = (this.sideLength * 0.45) + 'px FontAwesome';
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'middle';
+			ctx.fillStyle = 'rgba(0, 212, 255, 0.85)';
+			ctx.fillText(String.fromCharCode(0xf132), 0, 0);
+			ctx.restore();
+			ctx.strokeStyle = 'rgba(0,0,0,0)';
+		} else {
+			drawPolygon(this.x + gdx, this.y + gdy + this.dy, this.sides, this.sideLength, this.angle, arrayToColor(this.fillColor), 0, 'rgba(0,0,0,0)');
+		}
 	};
 }
 

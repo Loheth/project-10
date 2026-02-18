@@ -125,6 +125,72 @@ function Block(fallingLane, color, iter, distFromHex, settled) {
 		ctx.lineTo(baseX + p4.x, baseY + p4.y);
 		ctx.closePath();
 		ctx.fill();
+		if (gameState === 1 && !this.deleted) {
+			ctx.strokeStyle = 'rgba(0,0,0,0.45)';
+			ctx.lineWidth = 1.2;
+			ctx.stroke();
+		}
+
+		// Virus look when game is playing: spikes on outer edge
+		if (gameState === 1 && !this.deleted && !this.initializing) {
+			var outerCx = (p3.x + p4.x) / 2;
+			var outerCy = (p3.y + p4.y) / 2;
+			var len = Math.sqrt(outerCx * outerCx + outerCy * outerCy) || 1;
+			var nx = outerCx / len;
+			var ny = outerCy / len;
+			var spikeLen = Math.min(this.height * 0.6, 8 * (window.devicePixelRatio || 1));
+			var spikeW = this.widthWide * 0.15;
+			var numSpikes = 5;
+			ctx.save();
+			ctx.fillStyle = this.color;
+			ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+			ctx.lineWidth = 1;
+			for (var s = 0; s < numSpikes; s++) {
+				var t = (s + 1) / (numSpikes + 1);
+				var sx = baseX + (1 - t) * p4.x + t * p3.x;
+				var sy = baseY + (1 - t) * p4.y + t * p3.y;
+				var tipX = sx + nx * spikeLen;
+				var tipY = sy + ny * spikeLen;
+				var perpX = -ny * spikeW;
+				var perpY = nx * spikeW;
+				ctx.beginPath();
+				ctx.moveTo(tipX, tipY);
+				ctx.lineTo(sx + perpX, sy + perpY);
+				ctx.lineTo(sx - perpX, sy - perpY);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();
+			}
+			ctx.restore();
+		}
+
+		// Draw malware type label centered inside the block; scale font so full text fits
+		if ((gameState === 1 || gameState === 0) && !this.deleted && colorToMalware) {
+			var malware = colorToMalware[this.color];
+			if (malware) {
+				ctx.save();
+				var scale = settings.scale || 1;
+				var centerWidth = (this.width + this.widthWide) / 2;
+				var maxW = centerWidth * 0.9;
+				var maxH = this.height * 0.8;
+				var fontSize = Math.min(maxH, 11 * scale);
+				ctx.font = "bold " + Math.round(fontSize) + "px Exo 2, sans-serif";
+				var m = ctx.measureText(malware.short);
+				if (m.width > maxW && maxW > 0) {
+					fontSize = Math.min(fontSize, fontSize * (maxW / m.width));
+					fontSize = Math.max(4, Math.round(fontSize));
+					ctx.font = "bold " + fontSize + "px Exo 2, sans-serif";
+				}
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				ctx.fillStyle = "rgba(255,255,255,0.95)";
+				ctx.strokeStyle = "rgba(0,0,0,0.6)";
+				ctx.lineWidth = 0.8;
+				ctx.strokeText(malware.short, baseX, baseY);
+				ctx.fillText(malware.short, baseX, baseY);
+				ctx.restore();
+			}
+		}
 
 		if (this.tint) {
 			if (this.opacity < 1) {

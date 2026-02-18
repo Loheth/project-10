@@ -6,6 +6,17 @@ function initialize(a) {
 	window.lastTime = Date.now();
 	window.iframHasLoaded = false;
 	window.colors = ["#ff3366", "#ff9500", "#00d4ff", "#00ff88"];
+	// Malware types for each block color (for in-game display)
+	window.colorToMalware = {
+		"#ff3366": { name: "Ransomware", short: "RANSOM" },
+		"#ff9500": { name: "Trojan", short: "TROJAN" },
+		"#00d4ff": { name: "Spyware", short: "SPY" },
+		"#00ff88": { name: "Worm", short: "WORM" },
+		"rgb(255,51,102)": { name: "Ransomware", short: "RANSOM" },
+		"rgb(255,149,0)": { name: "Trojan", short: "TROJAN" },
+		"rgb(0,212,255)": { name: "Spyware", short: "SPY" },
+		"rgb(0,255,136)": { name: "Worm", short: "WORM" }
+	};
 	window.hexColorsToTintedColors = {
 		"#ff3366": "rgb(255,130,160)",
 		"#ff9500": "rgb(255,190,100)",

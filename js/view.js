@@ -22,18 +22,6 @@ function drawScoreboard() {
 		textOpacity += 0.01;
 	}
 	ctx.globalAlpha = textOpacity;
-	var scoreSize = 50;
-	var scoreString = String(score);
-	if (scoreString.length == 6) {
-		scoreSize = 43;
-	} else if (scoreString.length == 7) {
-		scoreSize = 35;
-	} else if (scoreString.length == 8) {
-		scoreSize = 31;
-	} else if (scoreString.length == 9) {
-		scoreSize = 27;
-	}
-	var color = "#00ff88";
     var fontSize = settings.platform == 'mobile' ? 35 : 30;
     var h = trueCanvas.height / 2 + gdy + 100 * settings.scale;
 	if (gameState === 0) {
@@ -45,11 +33,6 @@ function drawScoreboard() {
 		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy, 60, "#00d4ff", String.fromCharCode("0xf04b"), 'px FontAwesome');
 		renderText(trueCanvas.width / 2 + gdx + 6 * settings.scale, trueCanvas.height / 2 + gdy - 155 * settings.scale, 150, "#00d4ff", "CyberHex");
 		renderText(trueCanvas.width / 2 + gdx + 5 * settings.scale, h, fontSize, "#00ff88", 'DEFEND!');
-		ctx.globalAlpha = scoreOpacity;
-		renderText(trueCanvas.width / 2 + gdx, trueCanvas.height / 2 + gdy, scoreSize, color, score);
-	} else {
-		ctx.globalAlpha = scoreOpacity;
-		renderText(trueCanvas.width / 2 + gdx, trueCanvas.height / 2 + gdy, scoreSize, color, score);
 	}
 
 	ctx.globalAlpha = 1;
